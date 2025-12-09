@@ -23,10 +23,10 @@ const items = [
 ];
 </script>
  
-<Sidebar.Root style="padding-top: 3rem; margin-left: 15rem">
+<Sidebar.Root style="padding-top: 3rem; margin-left: 10rem; border: none">
  <Sidebar.Content>
   <Sidebar.Group>
-   <Sidebar.GroupLabel style="font-size: 1.75rem">Kleo08s</Sidebar.GroupLabel>
+   <Sidebar.GroupLabel style="font-size: 1.75rem; font-family: var(--font-header)">Kleo08s</Sidebar.GroupLabel>
    <Sidebar.GroupContent>
     <Sidebar.Menu style="margin-top: 1rem">
      {#each items as item (item.title)}

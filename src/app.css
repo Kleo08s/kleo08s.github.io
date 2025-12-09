@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 @import "tailwindcss";
 
 @import "tw-animate-css";
@@ -37,6 +39,12 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+}
+
+:root {
+  --font-header: "Bricolage Grotesque", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 .dark {
@@ -117,5 +125,47 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-header);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+p {
+  font-family: var(--font-body);
+}
+
+.grid-main {
+  margin-top: 1.5rem;
+  column-count: 2;
+  column-gap: 1rem;
+  max-width: 62rem;
+}
+
+.grid-main .element {
+  background-color: var(--card);
+  padding: 1rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  display: inline-block;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid-main {
+    column-count: 2;
   }
 }

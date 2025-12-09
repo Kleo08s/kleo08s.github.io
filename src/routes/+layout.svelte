@@ -17,7 +17,7 @@
 
 <ModeWatcher />
 
-<Sidebar.Provider style="margin-left: 18rem; width: auto">
+<Sidebar.Provider style="margin-left: 10rem; width: auto">
   <AppSidebar />
   <main>
     <Sidebar.Trigger />
