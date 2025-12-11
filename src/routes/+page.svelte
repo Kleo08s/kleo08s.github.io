@@ -7,27 +7,27 @@
   
   import { onMount } from 'svelte';
 
-  const resizeAllGridItems = () => {
-    const grid = document.querySelector('.grid-main') as HTMLElement | null;
-    if (!grid) return;
+  // const resizeAllGridItems = () => {
+  //   const grid = document.querySelector('.grid-main') as HTMLElement | null;
+  //   if (!grid) return;
 
-    const rowHeight = 1;
-    const rowGap = parseFloat(getComputedStyle(grid).rowGap);
+  //   const rowHeight = 1;
+  //   const rowGap = parseFloat(getComputedStyle(grid).rowGap);
 
-    grid.querySelectorAll<HTMLElement>('.element').forEach((item) => {
-      item.style.gridRowEnd = 'auto';
-      const height = item.offsetHeight;
-      const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
-      item.style.gridRowEnd = `span ${rowSpan}`;
-    });
-  };
+  //   grid.querySelectorAll<HTMLElement>('.element').forEach((item) => {
+  //     item.style.gridRowEnd = 'auto';
+  //     const height = item.offsetHeight;
+  //     const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+  //     item.style.gridRowEnd = `span ${rowSpan}`;
+  //   });
+  // };
 
-  onMount(() => {
-    setTimeout(resizeAllGridItems, 0);
-    window.addEventListener('resize', resizeAllGridItems);
+  // onMount(() => {
+  //   setTimeout(resizeAllGridItems, 0);
+  //   window.addEventListener('resize', resizeAllGridItems);
 
-    return () => window.removeEventListener('resize', resizeAllGridItems);
-  });
+  //   return () => window.removeEventListener('resize', resizeAllGridItems);
+  // });
 </script>
 
 <div class="shadow-up"></div>
@@ -60,6 +60,11 @@
         </div>
       </h2>
     </div>
+  </div>
+
+  <div class="element">
+    <h1>22:35:38</h1>
+    <p>Europe/Rome</p>
   </div>
   
   <div class="element">
@@ -99,9 +104,9 @@
         <h2 style="overflow-wrap: anywhere;">Flamewall</h2>
         <p style="overflow-wrap: anywhere;">Camellia</p>
         <div style="display: flex; gap: 1rem; margin-top: 0.5rem">
-          <p style="font-family: var(--font-mono); color: #2ecc71; font-weight: bold">1:21</p>
+          <p style="font-family: var(--font-mono); color: #2ecc71; font-weight: bold; overflow-wrap: normal;">1:21</p>
           <Progress color="#2ecc71" value={33} style="margin-top: 0.5rem" />
-          <p style="font-family: var(--font-mono); color: #2ecc71; font-weight: bold">4:32</p>
+          <p style="font-family: var(--font-mono); color: #2ecc71; font-weight: bold; overflow-wrap: normal;">4:32</p>
         </div>
       </div>
     </div>
