@@ -63,11 +63,11 @@
   </div>
   
   <div class="element">
-    <div class="inlineicon">
+    <div class="inlineicon" style="margin-bottom: -1rem;">
       <h2><Rss />Status</h2>
     </div>
 
-    <div id="status-empty">
+    <div id="status-empty" style="margin-top: 1rem">
       <i>Currently doing nothing...</i>
     </div>
 
