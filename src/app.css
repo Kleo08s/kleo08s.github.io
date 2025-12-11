@@ -155,7 +155,7 @@ p {
 
 .grid-main .element {
   background-color: var(--card);
-  padding: 1.5rem;
+  padding: 1.25rem;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   break-inside: avoid;
@@ -168,6 +168,12 @@ p {
   border-radius: var(--radius-xl);
   max-width: 5rem;
   max-height: 5rem;
+}
+
+.grid-main .element .inlineicon h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 @media (min-width: 768px) {

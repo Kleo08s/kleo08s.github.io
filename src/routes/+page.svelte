@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { Sun, ExternalLink } from '@lucide/svelte';
+  
   import { Progress } from "$lib/components/ui/progress/index.js";
   
   import { onMount } from 'svelte';
@@ -7,15 +9,15 @@
     const grid = document.querySelector('.grid-main') as HTMLElement | null;
     if (!grid) return;
 
-    // const rowHeight = 1;
-    // const rowGap = parseFloat(getComputedStyle(grid).rowGap);
+    const rowHeight = 1;
+    const rowGap = parseFloat(getComputedStyle(grid).rowGap);
 
-    // grid.querySelectorAll<HTMLElement>('.element').forEach((item) => {
-    //   item.style.gridRowEnd = 'auto';
-    //   const height = item.offsetHeight;
-    //   const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
-    //   item.style.gridRowEnd = `span ${rowSpan}`;
-    // });
+    grid.querySelectorAll<HTMLElement>('.element').forEach((item) => {
+      item.style.gridRowEnd = 'auto';
+      const height = item.offsetHeight;
+      const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = `span ${rowSpan}`;
+    });
   };
 
   onMount(() => {
@@ -40,6 +42,20 @@
       <p><b>22,979%</b></p>
     </div>
     <Progress value={6518} max={28365} style="margin-top: 0.5rem" />
+  </div>
+  <div class="element">
+    <div class="inlineicon">
+      <h2><Sun />Weather<ExternalLink size="20" style="margin-left: auto" /></h2>
+    </div>
+    <div class="inlineicon">
+      <h2 style="font-size: 2.25rem; margin-left: 1.5rem; display: flex; align-items: center; gap: 1rem">
+        <Sun size="50" style="flex-shrink: 0" />
+        <div style="display: flex; flex-direction: column">
+          <span>Sunny</span>
+          <span style="font-family: var(--font-body); font-size: 1.25rem">27°C (min 21°C max 29°C)</span>
+        </div>
+      </h2>
+    </div>
   </div>
 </div>
 <div class="shadow-bottom"></div>
