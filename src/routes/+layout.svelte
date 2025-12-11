@@ -6,6 +6,8 @@
 	import { ModeWatcher } from "mode-watcher";
 
 	import * as Sidebar from "$lib/components/ui/sidebar/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+
 	import AppSidebar from "$lib/components/app-sidebar.svelte";
 
 	let { children } = $props();
@@ -21,6 +23,8 @@
   <AppSidebar />
   <main>
     <Sidebar.Trigger />
-    {@render children?.()}
+	<Tooltip.Provider>
+    	{@render children?.()}
+	</Tooltip.Provider>
   </main>
 </Sidebar.Provider>

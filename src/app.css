@@ -142,7 +142,7 @@ h2 {
   font-weight: 600;
 }
 
-p {
+p, b, i {
   font-family: var(--font-body);
 }
 
@@ -201,4 +201,9 @@ p {
   display: inline;
   margin-left: -5rem;
   bottom: 0;
+}
+
+#status-gaming, #status-music {
+  display: none !important;
+  margin-top: 1rem;
 }
