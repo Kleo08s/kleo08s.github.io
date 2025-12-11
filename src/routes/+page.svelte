@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Sun, ExternalLink, Rss, Gamepad2 } from '@lucide/svelte';
+  import { Sun, ExternalLink, Rss, Gamepad2, Music } from '@lucide/svelte';
   
   import { Progress } from "$lib/components/ui/progress/index.js";
 
@@ -103,6 +103,36 @@
           <Progress color="#2ecc71" value={33} style="margin-top: 0.5rem" />
           <p style="font-family: var(--font-mono); color: #2ecc71; font-weight: bold">4:32</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="element">
+    <div class="inlineicon">
+      <h2><Music />Music<ExternalLink size="20" style="margin-left: auto" /></h2>
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 0.5rem;">
+      <h1>16.321</h1>
+      <p>scrobbles</p>
+      <p style="filter: opacity(0.25);">since 29 june 2024</p>
+    </div>
+
+    <h2>Last 3 songs</h2>
+    <div class="music-top-main">
+      <div class="music-top-element">
+        <img src="https://i.scdn.co/image/ab67616d0000b273f9cfbf4187cef596c5f8df9c" alt="Kleo08s's current PFP" id="image-large">
+        <h3>Fra Martino campanaro</h3>
+        <p>Coro Fonola band</p>
+      </div>
+      <div class="music-top-element">
+        <img src="https://i.scdn.co/image/ab67616d0000b273f9cfbf4187cef596c5f8df9c" alt="Kleo08s's current PFP" id="image-large">
+        <h3>Mmhmm</h3>
+        <p>BigXthaPlug</p>
+      </div>
+      <div class="music-top-element">
+        <img src="https://i.scdn.co/image/ab67616d0000b273f9cfbf4187cef596c5f8df9c" alt="Kleo08s's current PFP" id="image-large">
+        <h3>Napoli Tirana</h3>
+        <p>Stresi</p>
       </div>
     </div>
   </div>

@@ -142,6 +142,11 @@ h2 {
   font-weight: 600;
 }
 
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
 p, b, i {
   font-family: var(--font-body);
 }
@@ -206,4 +211,25 @@ p, b, i {
 #status-gaming, #status-music {
   display: none !important;
   margin-top: 1rem;
+}
+
+.music-top-main {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  text-align: -webkit-center;
+}
+
+.music-top-main .music-top-element {
+  width: -webkit-fill-available;
+}
+
+.music-top-main .music-top-element h3 {
+  margin-top: 1rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.music-top-main .music-top-element h3, p {
+  overflow-wrap: anywhere;
 }
