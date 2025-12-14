@@ -7,17 +7,17 @@ import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 const items = [
     {
         title: "Home",
-        url: "#",
+        url: "..",
         icon: HouseIcon,
     },
     {
         title: "Projects",
-        url: "#",
+        url: "/projects",
         icon: BookMarked,
     },
     {
         title: "Contacts",
-        url: "#",
+        url: "/contacts",
         icon: Mail,
     },
 ];
