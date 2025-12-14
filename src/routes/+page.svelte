@@ -62,6 +62,15 @@
     </div>
   </div>
 
+  <div class="grid-main" style="display: flex; margin-top: 0; padding-bottom: 0">
+    <div class="element" style="aspect-ratio: 1/1;">
+      <h2>Ciao!</h2>
+    </div>
+    <div class="element">
+      <h2>Ciao!</h2>
+    </div>
+  </div>
+
   <div class="element">
     <h1>22:35:38</h1>
     <p>Europe/Rome</p>
