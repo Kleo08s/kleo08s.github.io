@@ -156,6 +156,7 @@ p, b, i {
   column-count: 2;
   column-gap: 1rem;
   max-width: 65rem;
+  padding-bottom: 5rem;
 }
 
 .grid-main .element {
