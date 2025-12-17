@@ -1,7 +1,5 @@
 <script lang="ts">
-import HouseIcon from "@lucide/svelte/icons/house";
-import BookMarked from "@lucide/svelte/icons/book-marked";
-import Mail from "@lucide/svelte/icons/mail";
+import { HouseIcon, BookMarked, Mail, ToolCase } from "@lucide/svelte";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
  
 const items = [
@@ -20,6 +18,11 @@ const items = [
         url: "/contacts",
         icon: Mail,
     },
+    {
+        title: "Stuff",
+        url: "/stuff",
+        icon: ToolCase
+    }
 ];
 </script>
  
