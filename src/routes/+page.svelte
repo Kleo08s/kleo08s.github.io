@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Sun, ExternalLink, Rss, Gamepad2, Music } from '@lucide/svelte';
+  import { Sun, ExternalLink, Rss, Gamepad2, Music, Flame } from '@lucide/svelte';
   
   import { Progress } from "$lib/components/ui/progress/index.js";
 
@@ -57,6 +57,21 @@
         {#each data as level}
           <div class={`w-4 h-4 rounded-sm ${colors[level]}`}></div>
         {/each}
+      </div>
+    </div>
+    <div class="element">
+      <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: -0.5rem">
+        <h2>3</h2>
+        <b>Projects</b>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 0.5rem; overflow-wrap: anywhere; margin-top: -0.25rem">
+        <h2>410</h2>
+        <b>Commits</b>
+      </div>
+      <i>This year's data</i>
+      <div style="display: flex; align-items: center; gap: 0.5rem; overflow-wrap: anywhere; margin-top: 1rem">
+        <Flame size="50" style="color: #ef4444" />
+        <h1 style="margin-top:0.25rem; background:linear-gradient(90deg,#f87171,#ef4444,#b91c1c); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">0</h1>
       </div>
     </div>
   </div>
