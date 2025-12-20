@@ -5,29 +5,18 @@
 
   import * as Tooltip from "$lib/components/ui/tooltip/index.js";
   
-  import { onMount } from 'svelte';
+  const data = Array.from({ length: 49 }, () =>
+    Math.floor(Math.random() * 6)
+  );
 
-  // const resizeAllGridItems = () => {
-  //   const grid = document.querySelector('.grid-main') as HTMLElement | null;
-  //   if (!grid) return;
-
-  //   const rowHeight = 1;
-  //   const rowGap = parseFloat(getComputedStyle(grid).rowGap);
-
-  //   grid.querySelectorAll<HTMLElement>('.element').forEach((item) => {
-  //     item.style.gridRowEnd = 'auto';
-  //     const height = item.offsetHeight;
-  //     const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
-  //     item.style.gridRowEnd = `span ${rowSpan}`;
-  //   });
-  // };
-
-  // onMount(() => {
-  //   setTimeout(resizeAllGridItems, 0);
-  //   window.addEventListener('resize', resizeAllGridItems);
-
-  //   return () => window.removeEventListener('resize', resizeAllGridItems);
-  // });
+  const colors = [
+    "bg-emerald-400",
+    "bg-emerald-600",
+    "bg-emerald-700",
+    "bg-emerald-800",
+    "bg-emerald-900",
+    "bg-zinc-800"
+  ];
 </script>
 
 <div class="shadow-up"></div>
@@ -64,10 +53,11 @@
 
   <div class="grid-main" style="display: flex; margin-top: 0; padding-bottom: 0">
     <div class="element" style="aspect-ratio: 1/1;">
-      <h2>Ciao!</h2>
-    </div>
-    <div class="element">
-      <h2>Ciao!</h2>
+      <div class="grid grid-cols-7" style="gap: 0.25rem; width: -webkit-fill-available; height: -webkit-fill-available; align-items: center; display: grid; justify-items: center;">
+        {#each data as level}
+          <div class={`w-4 h-4 rounded-sm ${colors[level]}`}></div>
+        {/each}
+      </div>
     </div>
   </div>
 
