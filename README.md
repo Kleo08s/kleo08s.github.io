@@ -8,4 +8,4 @@
 epic website created by me
 
 ## How to clone
-Simply create a fork, make your changes (change name, api keys, etc.), and you can publish it with GitHub Pages..
+Simply create a fork, make your changes (change name, api keys, etc.), and you can publish it with GitHub Pages or Cloudflare Pages.
