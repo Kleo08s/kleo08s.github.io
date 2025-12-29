@@ -48,6 +48,7 @@
 		"vite": "^7.2.2"
 	},
 	"dependencies": {
-		"mode-watcher": "^1.1.0"
+		"mode-watcher": "^1.1.0",
+		"svelte-snow": "^1.0.1"
 	}
 }

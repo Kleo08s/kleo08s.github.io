@@ -151,6 +151,12 @@ p, b, i {
   font-family: var(--font-body);
 }
 
+.snowflake {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+
 .grid-main {
   margin-top: 5rem;
   column-count: 2;
