@@ -22,13 +22,5 @@
 <ModeWatcher />
 
 <SvelteSnow activeMonths={[ 1, 2, 12 ]}>
-	<Sidebar.Provider style="margin-left: 10rem; width: auto">
-	<AppSidebar />
-	<main>
-		<Sidebar.Trigger />
-		<Tooltip.Provider>
-			{@render children?.()}
-		</Tooltip.Provider>
-	</main>
-	</Sidebar.Provider>
+	{@render children?.()}
 </SvelteSnow>
