@@ -21,6 +21,6 @@
 
 <ModeWatcher />
 
-<SvelteSnow activeMonths={[ 1, 2, 12 ]}>
+<SvelteSnow active={false}>
 	{@render children?.()}
 </SvelteSnow>
