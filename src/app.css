@@ -39,6 +39,8 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+
+  --navbar-background: oklch(84.511% 0.01386 286.005 / 0.85);
 }
 
 :root {
@@ -79,6 +81,8 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.141 0.005 285.823);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+
+  --navbar-background: oklch(27.394% 0.00551 285.955 / 0.85);
 }
 
 @theme inline {
@@ -147,7 +151,7 @@ h3 {
   font-weight: 500;
 }
 
-p, b, i {
+p, b, i, a, button {
   font-family: var(--font-body);
 }
 
