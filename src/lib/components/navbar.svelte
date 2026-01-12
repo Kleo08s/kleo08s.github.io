@@ -56,8 +56,13 @@
     }
 
     .app-list .element img {
-        width: 3rem;
-        height: 3rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .app-list .element p {
+        font-size: 12px;
+        color: var(--muted-foreground);
     }
 </style>
 <div class="navbar-main">
@@ -70,30 +75,32 @@
             <Popover.Content class="w-130 rounded-[15px]" >
                 <h3>Apps</h3>
                 <p>To get access to my self-hosted app email me. It's not guaranteed 100% i will make an account for you, i accept only my friends.</p>
+                <div class="app-list" style="grid-template-columns: 1fr;">
+                    <div class="element">
+                        <img src="https://auth.kleo08s.lol/favicon.ico" alt="Logo">
+                        <div style="width: 100%;">
+                            <b>Authelia</b>
+                            <p>The main OAuth Provider</p>
+                        </div>
+                        <a href="https://auth.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
+                    </div>
+                </div>
                 <div class="app-list">
                     <div class="element">
-                        <img src="https://gitea.com/assets/img/favicon.png" alt="Logo">
+                        <img src="https://file.kleo08s.lol/api/favicon" alt="Logo">
                         <div style="width: 100%;">
-                            <b>Gitea</b>
-                            <p>Git repos</p>
+                            <b>Erugo</b>
+                            <p>File sharing</p>
                         </div>
-                        <icon.ExternalLink size=40 />
+                        <a href="https://file.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
                     </div>
                     <div class="element">
-                        <img src="https://gitea.com/assets/img/favicon.png" alt="Logo">
+                        <img src="https://git.kleo08s.lol/assets/img/favicon.png" alt="Logo">
                         <div style="width: 100%;">
                             <b>Gitea</b>
-                            <p>Git repos</p>
+                            <p>Repo hosting</p>
                         </div>
-                        <icon.ExternalLink size=40 />
-                    </div>
-                    <div class="element">
-                        <img src="https://gitea.com/assets/img/favicon.png" alt="Logo">
-                        <div style="width: 100%;">
-                            <b>Gitea</b>
-                            <p>Git repos</p>
-                        </div>
-                        <icon.ExternalLink size=40 />
+                        <a href="https://git.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
                     </div>
                 </div>
             </Popover.Content>
