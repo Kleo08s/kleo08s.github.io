@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap');
+
 /* Effetto combinato animate-btt + fadeblur */
 /* Effetto combinato animate-btt + fadeblur: tutte le proprietà transizionano insieme */
 .animate-btt.fadeblur,
@@ -29,7 +31,6 @@
   filter: blur(0px);
   opacity: 1;
 }
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap');
 
 .animate-ttb,
 .animate-btt {
