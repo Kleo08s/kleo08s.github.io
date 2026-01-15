@@ -5,6 +5,7 @@
     import { buttonVariants } from "$lib/components/ui/button/index.js";
     import { Input } from "$lib/components/ui/input/index.js";
     import { Label } from "$lib/components/ui/label/index.js";
+    import { badgeVariants } from "$lib/components/ui/badge/index.js";
 
     import * as Popover from "$lib/components/ui/popover/index.js";
 </script>
@@ -64,6 +65,12 @@
         font-size: 12px;
         color: var(--muted-foreground);
     }
+
+    .app-list .element .title {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
 </style>
 <div class="navbar-main">
     <div class="start">
@@ -79,7 +86,10 @@
                     <div class="element">
                         <img src="https://auth.kleo08s.lol/favicon.ico" alt="Logo">
                         <div style="width: 100%;">
-                            <b>Authelia</b>
+                            <div class="title">
+                                <b>Authelia</b>
+                                <a href="https://kleo08s.instatus.com/" target="_blank" class={badgeVariants({ variant: "outline", class: "bg-green-700" })}><icon.BadgeCheck /></a>
+                            </div>
                             <p>The main OAuth Provider</p>
                         </div>
                         <a href="https://auth.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
@@ -89,7 +99,10 @@
                     <div class="element">
                         <img src="https://file.kleo08s.lol/api/favicon" alt="Logo">
                         <div style="width: 100%;">
-                            <b>Erugo</b>
+                            <div class="title">
+                                <b>Erugo</b>
+                                <a href="https://kleo08s.instatus.com/" target="_blank" class={badgeVariants({ variant: "outline", class: "bg-yellow-700" })}><icon.TriangleAlert /></a>
+                            </div>
                             <p>File sharing</p>
                         </div>
                         <a href="https://file.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
@@ -97,7 +110,10 @@
                     <div class="element">
                         <img src="https://git.kleo08s.lol/assets/img/favicon.png" alt="Logo">
                         <div style="width: 100%;">
-                            <b>Gitea</b>
+                            <div class="title">
+                                <b>Authelia</b>
+                                <a href="https://kleo08s.instatus.com/" target="_blank" class={badgeVariants({ variant: "outline", class: "bg-red-700" })}><icon.HeartCrack /></a>
+                            </div>
                             <p>Repo hosting</p>
                         </div>
                         <a href="https://git.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
