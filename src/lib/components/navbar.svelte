@@ -6,6 +6,7 @@
 
     import * as Popover from "$lib/components/ui/popover/index.js";
     import * as NavigationMenu from "$lib/components/ui/navigation-menu/index.js";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 </script>
 
 <style>
@@ -73,6 +74,18 @@
 </style>
 <div class="navbar-main">
     <div class="start">
+        <div class="mobile" style="display: none;">
+            <DropdownMenu.Root>
+                <DropdownMenu.Trigger style="display: flex"><icon.Menu size={20} /></DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                    <DropdownMenu.Group>
+                        <a href="/#"><DropdownMenu.Item>Home</DropdownMenu.Item></a>
+                        <a href="/#"><DropdownMenu.Item>Projects</DropdownMenu.Item></a>
+                        <a href="/#"><DropdownMenu.Item>Tools</DropdownMenu.Item></a>
+                    </DropdownMenu.Group>
+                </DropdownMenu.Content>
+            </DropdownMenu.Root>
+        </div>
         <h2>Kleo08s</h2>
         <NavigationMenu.Root>
             <NavigationMenu.List>
