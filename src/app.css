@@ -82,7 +82,7 @@
   --sidebar-border: oklch(0.141 0.005 285.823);
   --sidebar-ring: oklch(0.552 0.016 285.938);
 
-  --navbar-background: oklch(27.394% 0.00551 285.955 / 0.85);
+  --navbar-background: oklch(0.21 0 0 / 0.8);
 }
 
 @theme inline {

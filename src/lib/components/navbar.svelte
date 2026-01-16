@@ -2,12 +2,10 @@
     import * as icon from '@lucide/svelte';
 
     import { Button } from "$lib/components/ui/button/index.js";
-    import { buttonVariants } from "$lib/components/ui/button/index.js";
-    import { Input } from "$lib/components/ui/input/index.js";
-    import { Label } from "$lib/components/ui/label/index.js";
     import { badgeVariants } from "$lib/components/ui/badge/index.js";
 
     import * as Popover from "$lib/components/ui/popover/index.js";
+    import * as NavigationMenu from "$lib/components/ui/navigation-menu/index.js";
 </script>
 
 <style>
@@ -15,6 +13,7 @@
         width: 67rem;
         background: var(--navbar-background);
         border-radius: var(--radius-xl);
+        border: 1px solid var(--border);
         height: 3.5rem;
         position: fixed;
         margin-top: 2rem;
@@ -75,6 +74,19 @@
 <div class="navbar-main">
     <div class="start">
         <h2>Kleo08s</h2>
+        <NavigationMenu.Root>
+            <NavigationMenu.List>
+                <NavigationMenu.Item >
+                    <NavigationMenu.Link href="#"><b>Home</b></NavigationMenu.Link>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item>
+                    <NavigationMenu.Link href="#">Projects</NavigationMenu.Link>
+                </NavigationMenu.Item>
+                <NavigationMenu.Item>
+                    <NavigationMenu.Link href="#">Tools</NavigationMenu.Link>
+                </NavigationMenu.Item>
+            </NavigationMenu.List>
+        </NavigationMenu.Root>
     </div>
     <div class="end">
         <Popover.Root open={false}> <!-- * Remove after production -->
