@@ -50,15 +50,15 @@
         padding-right: 1rem;
         border-radius: var(--radius-xl);
         display: flex;
-        gap: 1rem;
+        gap: 0.75rem;
         align-items: center;
         justify-content: space-evenly;
         border: 1px solid var(--border);
     }
 
     .app-list .element img {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2rem;
+        height: 2rem;
     }
 
     .app-list .element p {
@@ -77,11 +77,11 @@
         <h2>Kleo08s</h2>
     </div>
     <div class="end">
-        <Popover.Root open={true}>
+        <Popover.Root open={false}> <!-- * Remove after production -->
             <Popover.Trigger><icon.Grip style="cursor: pointer" /></Popover.Trigger>
             <Popover.Content class="w-130 rounded-[15px]" >
-                <h3>Apps</h3>
-                <p>To get access to my self-hosted app email me. It's not guaranteed 100% i will make an account for you, i accept only my friends.</p>
+                <h3>Self-hosted Apps</h3>
+                <p>Invite-only access to my self-hosted apps. DM me if you want to get access to them, but I accept only friends.</p>
                 <div class="app-list" style="grid-template-columns: 1fr;">
                     <div class="element">
                         <img src="https://auth.kleo08s.lol/favicon.ico" alt="Logo">
@@ -97,6 +97,17 @@
                 </div>
                 <div class="app-list">
                     <div class="element">
+                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcf.appdrag.com%2Fdashboard-openvm-clo-b2d42c%2Fuploads%2FVaultwarden-yaX9.png&f=1&nofb=1&ipt=cbd3fd9fb825def153bd28bd2313cb5a2fad5e5f2e56e7217fe73a2958948687" alt="Logo">
+                        <div style="width: 100%;">
+                            <div class="title">
+                                <b>BitWarden</b>
+                                <a href="https://kleo08s.instatus.com/" target="_blank" class={badgeVariants({ variant: "outline", class: "bg-yellow-700" })}><icon.TriangleAlert /></a>
+                            </div>
+                            <p>Password manager</p>
+                        </div>
+                        <a href="https://vault.kleo08s.lol/"><icon.ExternalLink size=20 /></a>
+                    </div>
+                    <div class="element">
                         <img src="https://file.kleo08s.lol/api/favicon" alt="Logo">
                         <div style="width: 100%;">
                             <div class="title">
@@ -111,7 +122,7 @@
                         <img src="https://git.kleo08s.lol/assets/img/favicon.png" alt="Logo">
                         <div style="width: 100%;">
                             <div class="title">
-                                <b>Authelia</b>
+                                <b>Gitea</b>
                                 <a href="https://kleo08s.instatus.com/" target="_blank" class={badgeVariants({ variant: "outline", class: "bg-red-700" })}><icon.HeartCrack /></a>
                             </div>
                             <p>Repo hosting</p>
