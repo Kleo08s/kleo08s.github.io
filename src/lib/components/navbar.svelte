@@ -7,12 +7,14 @@
     import * as Popover from "$lib/components/ui/popover/index.js";
     import * as NavigationMenu from "$lib/components/ui/navigation-menu/index.js";
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+
+    import * as config from '$lib/config'
 </script>
 
 <style>
     .navbar-main {
         width: 67rem;
-        background: var(--navbar-background);
+        background: var(--card);
         border-radius: var(--radius-xl);
         border: 1px solid var(--border);
         height: 3.5rem;
@@ -86,7 +88,7 @@
                 </DropdownMenu.Content>
             </DropdownMenu.Root>
         </div>
-        <h2>Kleo08s</h2>
+        <h2>{config.profile.name}</h2>
         <NavigationMenu.Root>
             <NavigationMenu.List>
                 <NavigationMenu.Item >
