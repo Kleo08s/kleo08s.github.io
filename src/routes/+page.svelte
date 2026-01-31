@@ -26,15 +26,15 @@
     margin-bottom: 2.5rem;
   }
 
-  #banner {
+  .profile #banner {
     width: 100%;
     height: 7.5rem;
     object-fit: cover;
-    filter: opacity(0.5);
+    border: 1px solid var(--border);
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
 
-  #profile #pfp {
+  .profile #pfp {
     width: 6rem;
     height: 6rem;
     margin-left: 2rem;
@@ -44,23 +44,23 @@
     border: 1px solid var(--border);
   }
 
-  #profile h2 {
+  .profile h2 {
     margin-left: 1.5rem;
     margin-top: 0.5rem;
   }
 
-  #profile p {
+  .profile p {
     text-align: center;
     color: var(--muted-foreground);
   }
 
-  #profile .name {
+  .profile .name {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  #profile .name .badge {
+  .profile .name .badge {
     background-color: var(--secondary);
     padding: 0.25rem;
     padding-left: 0.75rem;
@@ -75,12 +75,32 @@
     border: 1px solid var(--border);
   }
 
-  #profile .name .badge b {
+  .profile .name .badge b {
     font-size: 13px;
   }
 
-  #profile .name .badge img {
+  .profile .name .badge img {
     height: 1rem;
+  }
+
+  .profile .bio {
+    background-color: var(--secondary);
+    border-radius: var(--radius-lg);
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .profile .bio h4 {
+    margin-top: -0.25rem;
+    font-weight: bold;
+    color: var(--muted-foreground);
+  }
+
+  .profile .bio p {
+    color: var(--foreground);
+    text-align: start;
+    margin-top: 0.25rem;
   }
 </style>
 
@@ -88,7 +108,7 @@
 
 <div class="main">
   <div class="grid1">
-    <div id="profile" class="element" style="padding-top: 0; padding-left: 0; padding-right: 0">
+    <div class="profile element" style="padding-top: 0; padding-left: 0; padding-right: 0">
       <img id="banner" src={config.profile.banner} alt="Banner">
       <img id="pfp" src={config.profile.pfp} alt="PFP">
       <div class="name">
@@ -98,7 +118,10 @@
           <b>GD</b>
         </div>
       </div>
-      <p>{config.profile.bio}</p>
+      <div class="bio">
+        <h4>ABOUT ME</h4>
+        <p>{config.profile.bio}</p>
+      </div>
     </div>
     <div class="element">
       <h2>Profile</h2>
