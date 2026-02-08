@@ -1,12 +1,65 @@
 <script lang="ts">
-  import * as icon from '@lucide/svelte';
-  
+  import { fade } from 'svelte/transition';
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
+
+  import * as config from '$lib/config';
   import Navbar from "$lib/components/navbar.svelte";
 
-  import * as config from '$lib/config'
+  const blur = tweened(15, { duration: 150, easing: cubicOut });
+  const alpha = tweened(0.75, { duration: 250, easing: cubicOut });
+
+  let showWelcome = true;
+
+  function enableAudio() {
+    const audio = document.getElementById('bg-audio') as HTMLAudioElement;
+    const video = document.getElementById('bg-video') as HTMLVideoElement;
+
+    audio.volume = 0.2;
+    audio.play();
+    video.play();
+
+    blur.set(0);
+    alpha.set(0);
+    showWelcome = false;
+  }
 </script>
 
 <style>
+  .welcome {
+    background-color: var(--welcome-background);
+    backdrop-filter: blur(10px);
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    align-content: center;
+    z-index: 999;
+    font-size: xx-large;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .welcome button {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
+  }
+
   .main {
     padding-top: 10rem;
     display: flex;
@@ -24,6 +77,7 @@
     border-radius: var(--radius-xl);
     border: 1px solid var(--border);
     margin-bottom: 2.5rem;
+    backdrop-filter: blur(10px);
   }
 
   .profile #banner {
@@ -105,6 +159,20 @@
 </style>
 
 <Navbar />
+
+<video loop muted playsinline class="bg-video" id="bg-video">
+  <source src="https://r2.guns.lol/0abd16f5-8565-46a8-b8de-2865d5ec4c09.mp4" type="video/mp4">
+</video>
+
+<audio id="bg-audio" loop>
+  <source src="https://r2.guns.lol/a8d2e150-8a24-49e1-8087-30059afabf30.mp3" type="audio/mpeg">
+</audio>
+
+<div class="welcome" style="backdrop-filter: blur({$blur}px); background-color: oklch(0.141 0.005 285.823 / {$alpha});">
+  {#if showWelcome}
+    <button on:click={enableAudio} style="margin-top: 2rem; font-family: var(--font-header); color: white" transition:fade>Inferno...</button>
+  {/if}
+</div>
 
 <div class="main">
   <div class="grid1">
