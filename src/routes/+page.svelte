@@ -10,6 +10,7 @@
   const alpha = tweened(0.75, { duration: 250, easing: cubicOut });
 
   let showWelcome = true;
+  const display = tweened("all", { duration: 250, easing: cubicOut });
 
   function enableAudio() {
     const audio = document.getElementById('bg-audio') as HTMLAudioElement;
@@ -21,6 +22,7 @@
 
     blur.set(0);
     alpha.set(0);
+    display.set("none")
     showWelcome = false;
   }
 </script>
@@ -168,7 +170,7 @@
   <source src="https://r2.guns.lol/a8d2e150-8a24-49e1-8087-30059afabf30.mp3" type="audio/mpeg">
 </audio>
 
-<div class="welcome" style="backdrop-filter: blur({$blur}px); background-color: oklch(0.141 0.005 285.823 / {$alpha});">
+<div class="welcome" style="backdrop-filter: blur({$blur}px); background-color: oklch(0.141 0.005 285.823 / {$alpha}); pointer-events: {$display}">
   {#if showWelcome}
     <button on:click={enableAudio} style="margin-top: 2rem; font-family: var(--font-header); color: white" transition:fade>Inferno...</button>
   {/if}
