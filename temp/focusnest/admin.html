@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusNest Admin - Gestione Ordini</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-950: #052e16;
+            --green-900: #14532d;
+            --green-800: #166534;
+            --green-700: #15803d;
+            --green-600: #16a34a;
+            --green-500: #22c55e;
+            --green-400: #4ade80;
+            --green-300: #86efac;
+            --green-200: #bbf7d0;
+            --green-100: #dcfce7;
+            --green-50:  #f0fdf4;
+            --cream: #1a1a1a;
+            --sand: #2a2a2a;
+            --bark: #ffffff;
+            --gray-700: #374151;
+            --gray-600: #4b5563;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-200: #e5e7eb;
+            --yellow-500: #eab308;
+            --red-500: #ef4444;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--bark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--sand);
+            border-bottom: 1px solid var(--green-200);
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--green-600);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            color: white;
+            width: 20px;
+            height: 20px;
+        }
+
+        .logo h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--green-800);
+            letter-spacing: -0.02em;
+        }
+
+        .logo p {
+            color: var(--gray-500);
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: transparent;
+            border: 1.5px solid var(--green-300);
+            color: var(--green-700);
+            text-decoration: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--green-50);
+            border-color: var(--green-500);
+        }
+
+        .btn-danger {
+            border-color: rgba(239, 68, 68, 0.4);
+            color: var(--red-500);
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: var(--red-500);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--sand);
+            border: 1px solid var(--green-200);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .stat-card p {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--bark);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            min-width: 280px;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            background: var(--sand);
+            border: 1.5px solid var(--green-200);
+            border-radius: 10px;
+            color: var(--bark);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--green-500);
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+
+        .select-input {
+            padding: 0.75rem 1rem;
+            background: var(--sand);
+            border: 1.5px solid var(--green-200);
+            border-radius: 10px;
+            color: var(--bark);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            min-width: 200px;
+            transition: border-color 0.2s;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: var(--green-500);
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+        }
+
+        .table-container {
+            background: var(--sand);
+            border: 1px solid var(--green-200);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--cream);
+            border-bottom: 1px solid var(--green-200);
+        }
+
+        th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green-700);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--green-50);
+            transition: background 0.15s;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: var(--cream);
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            background: rgba(234, 179, 8, 0.12);
+            color: #92400e;
+            border: 1px solid rgba(234, 179, 8, 0.3);
+        }
+
+        .badge-progress {
+            background: rgba(22, 163, 74, 0.12);
+            color: var(--green-700);
+            border: 1px solid rgba(22, 163, 74, 0.25);
+        }
+
+        .badge-completed {
+            background: rgba(22, 163, 74, 0.18);
+            color: var(--green-800);
+            border: 1px solid rgba(22, 163, 74, 0.35);
+        }
+
+        .order-id {
+            font-family: monospace;
+            color: var(--green-700);
+            font-weight: 600;
+            background: var(--green-50);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .icon-btn {
+            padding: 0.45rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: var(--green-600);
+        }
+
+        .icon-btn:hover {
+            background: var(--green-100);
+        }
+
+        .icon-btn.danger {
+            color: var(--red-500);
+        }
+
+        .icon-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--sand);
+            border: 1px solid var(--green-200);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 60px rgba(22,163,74,0.15);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--green-100);
+        }
+
+        .modal-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--bark);
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-header p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item label {
+            display: block;
+            color: var(--gray-500);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-item .value {
+            color: var(--bark);
+            font-weight: 500;
+        }
+
+        .description-box {
+            background: var(--cream);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--green-200);
+            margin-bottom: 1.5rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-primary {
+            background: var(--green-600);
+            color: white;
+            border-color: var(--green-600);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-700);
+            border-color: var(--green-700);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-400);
+            font-weight: 300;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--sand);
+            border: 1px solid var(--green-500);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: translateY(150%);
+            transition: transform 0.3s;
+            z-index: 9999;
+            color: var(--bark);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .toast.show { transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .table-container { overflow-x: auto; }
+            table { min-width: 800px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>FocusNest Admin</h1>
+                    <p>Gestione Ordini</p>
+                </div>
+            </div>
+            <a href="index.html" class="btn">
+                ← Torna al sito
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p>Ordini totali</p>
+                <h2 id="totalOrders">0</h2>
+            </div>
+            <div class="stat-card">
+                <p>In lavorazione</p>
+                <h2 id="inProgressOrders" style="color: var(--green-600);">0</h2>
+            </div>
+            <div class="stat-card">
+                <p>Completati</p>
+                <h2 id="completedOrders" style="color: var(--green-700);">0</h2>
+            </div>
+            <div class="stat-card">
+                <p>In attesa</p>
+                <h2 id="pendingOrders" style="color: var(--yellow-500);">0</h2>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="search-wrapper">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Cerca per ID ordine, nome cliente o email...">
+            </div>
+            <select id="statusFilter" class="select-input">
+                <option value="all">Tutti gli stati</option>
+                <option value="Pending Review">In attesa</option>
+                <option value="In Progress">In lavorazione</option>
+                <option value="Completed">Completato</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Ordine</th>
+                        <th>Cliente</th>
+                        <th>Richiesta</th>
+                        <th>Stato</th>
+                        <th>Prezzo</th>
+                        <th>Data</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                    <tr>
+                        <td colspan="7" class="empty-state">Nessun ordine trovato</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalOrderId">Dettagli Ordine</h2>
+                <p>Informazioni complete e gestione ordine</p>
+            </div>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>Nome cliente</label>
+                    <div class="value" id="modalCustomerName">-</div>
+                </div>
+                <div class="detail-item">
+                    <label>Email</label>
+                    <div class="value" id="modalEmail">-</div>
+                </div>
+                <div class="detail-item">
+                    <label>Categoria</label>
+                    <div class="value" id="modalMaterial">-</div>
+                </div>
+                <div class="detail-item">
+                    <label>Budget</label>
+                    <div class="value" id="modalColor">-</div>
+                </div>
+                <div class="detail-item">
+                    <label>Prezzo</label>
+                    <div class="value" id="modalPrice" style="color: var(--green-600); font-size: 1.1rem; font-weight: 700;">-</div>
+                </div>
+                <div class="detail-item">
+                    <label>Data ordine</label>
+                    <div class="value" id="modalDate">-</div>
+                </div>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; color: var(--gray-500); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Descrizione richiesta</label>
+                <div class="description-box" id="modalDescription">-</div>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; color: var(--gray-500); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Aggiorna stato</label>
+                <select id="modalStatusSelect" class="select-input" style="width: 100%;">
+                    <option value="Pending Review">In attesa</option>
+                    <option value="In Progress">In lavorazione</option>
+                    <option value="Completed">Completato</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button onclick="closeModal()" class="btn">Chiudi</button>
+                <button onclick="updateOrderStatus()" class="btn btn-primary">Aggiorna stato</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let currentOrderId = null;
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function loadOrders() {
+            return JSON.parse(localStorage.getItem('focusnest_orders') || '[]');
+        }
+
+        function saveOrders(orders) {
+            localStorage.setItem('focusnest_orders', JSON.stringify(orders));
+        }
+
+        function updateStats() {
+            const orders = loadOrders();
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('inProgressOrders').textContent = orders.filter(o => o.status === 'In Progress').length;
+            document.getElementById('completedOrders').textContent = orders.filter(o => o.status === 'Completed').length;
+            document.getElementById('pendingOrders').textContent = orders.filter(o => o.status === 'Pending Review').length;
+        }
+
+        function getStatusBadge(status) {
+            const icons = {
+                'Completed': '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+                'In Progress': '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
+                'Pending Review': '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
+            };
+            const classes = {
+                'Completed': 'badge-completed',
+                'In Progress': 'badge-progress',
+                'Pending Review': 'badge-pending'
+            };
+            const labels = {
+                'Completed': 'Completato',
+                'In Progress': 'In lavorazione',
+                'Pending Review': 'In attesa'
+            };
+            return `<span class="badge ${classes[status]}">${icons[status]} ${labels[status]}</span>`;
+        }
+
+        function renderOrders() {
+            const orders = loadOrders();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filtered = orders.filter(order => {
+                const matchSearch = order.customerName.toLowerCase().includes(searchTerm) ||
+                                   order.id.toLowerCase().includes(searchTerm) ||
+                                   order.email.toLowerCase().includes(searchTerm);
+                const matchStatus = statusFilter === 'all' || order.status === statusFilter;
+                return matchSearch && matchStatus;
+            });
+
+            const tbody = document.getElementById('ordersTableBody');
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nessun ordine trovato</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(order => `
+                <tr>
+                    <td><span class="order-id">${order.id}</span></td>
+                    <td>
+                        <div style="font-weight: 600;">${order.customerName}</div>
+                        <div style="color: var(--gray-400); font-size: 0.85rem;">${order.email}</div>
+                    </td>
+                    <td>
+                        <div style="max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 300;">
+                            ${order.description}
+                        </div>
+                        <div style="color: var(--gray-400); font-size: 0.8rem; margin-top: 0.2rem;">
+                            ${order.material} • ${order.color}
+                        </div>
+                    </td>
+                    <td>${getStatusBadge(order.status)}</td>
+                    <td><span style="color: var(--green-600); font-weight: 700;">${order.price}</span></td>
+                    <td style="color: var(--gray-500); font-size: 0.9rem;">${order.date}</td>
+                    <td>
+                        <div class="actions">
+                            <button class="icon-btn" onclick="viewOrder('${order.id}')" title="Visualizza">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                            <button class="icon-btn danger" onclick="deleteOrder('${order.id}')" title="Elimina">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function viewOrder(orderId) {
+            const orders = loadOrders();
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+            currentOrderId = orderId;
+            document.getElementById('modalOrderId').textContent = `Ordine ${order.id}`;
+            document.getElementById('modalCustomerName').textContent = order.customerName;
+            document.getElementById('modalEmail').textContent = order.email;
+            document.getElementById('modalMaterial').textContent = order.material;
+            document.getElementById('modalColor').textContent = order.color;
+            document.getElementById('modalPrice').textContent = order.price;
+            document.getElementById('modalDate').textContent = order.date;
+            document.getElementById('modalDescription').textContent = order.description;
+            document.getElementById('modalStatusSelect').value = order.status;
+            document.getElementById('orderModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('show');
+            currentOrderId = null;
+        }
+
+        function updateOrderStatus() {
+            if (!currentOrderId) return;
+            const orders = loadOrders();
+            const idx = orders.findIndex(o => o.id === currentOrderId);
+            if (idx === -1) return;
+            const newStatus = document.getElementById('modalStatusSelect').value;
+            orders[idx].status = newStatus;
+            saveOrders(orders);
+            showToast(`✅ Ordine ${currentOrderId} aggiornato`);
+            closeModal();
+            updateStats();
+            renderOrders();
+        }
+
+        function deleteOrder(orderId) {
+            if (!confirm(`Eliminare l'ordine ${orderId}?`)) return;
+            const orders = loadOrders().filter(o => o.id !== orderId);
+            saveOrders(orders);
+            showToast(`🗑️ Ordine ${orderId} eliminato`);
+            updateStats();
+            renderOrders();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', renderOrders);
+        document.getElementById('statusFilter').addEventListener('change', renderOrders);
+        document.getElementById('orderModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        updateStats();
+        renderOrders();
+    </script>
+</body>
+</html>
