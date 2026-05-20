@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusNest - Your Space to Study Better</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color-scheme: dark;
+        }
+
+        :root {
+            --green-950: #ecfdf5;
+            --green-900: #d1fae5;
+            --green-800: #a7f3d0;
+            --green-700: #6ee7b7;
+            --green-600: #34d399;
+            --green-500: #10b981;
+            --green-400: #059669;
+            --green-300: #047857;
+            --green-200: #065f46;
+            --green-100: #064e3b;
+            --green-50:  #022c22;
+
+            --cream: #1a1a1a;
+            --sand: #2a2a2a;
+            --bark: #ffffff;
+
+            --gray-700: #d1d5db;
+            --gray-500: #9ca3af;
+            --gray-400: #6b7280;
+            --gray-200: #374151;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--bark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(22, 163, 74, 0.2);
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: var(--green-800);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--green-600);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            color: white;
+            width: 20px;
+            height: 20px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.15s;
+        }
+
+        nav a:hover {
+            color: var(--green-600);
+        }
+
+        .nav-cta {
+            background: var(--green-600) !important;
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600 !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-700) !important;
+            color: white !important;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 60%, #0f0f0f 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(22,163,74,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--green-100);
+            color: var(--green-800);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--green-200);
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--bark);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .gradient-text {
+            color: var(--green-600);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            background: var(--green-600);
+            color: white;
+            text-decoration: none;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--green-700);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(22, 163, 74, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--green-300);
+            color: var(--green-700);
+        }
+
+        .btn-outline:hover {
+            background: var(--green-50);
+            border-color: var(--green-500);
+            transform: translateY(-2px);
+            box-shadow: none;
+        }
+
+        .hero-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .product-card-mini {
+            background: var(--sand);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            border: 1px solid var(--green-200);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .product-card-mini:nth-child(2) { animation-delay: 1s; }
+        .product-card-mini:nth-child(3) { animation-delay: 0.5s; }
+        .product-card-mini:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .product-card-mini:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 12px 40px rgba(22,163,74,0.15);
+        }
+
+        .product-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .product-card-mini h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--bark);
+            margin-bottom: 0.25rem;
+        }
+
+        .product-card-mini .price {
+            color: var(--green-600);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 6rem 0;
+            background: var(--sand);
+        }
+
+        .section-label {
+            text-align: center;
+            color: var(--green-600);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--bark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--cream);
+            border: 1px solid var(--green-200);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            background: var(--sand);
+            border-color: var(--green-300);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(22,163,74,0.15);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--green-600);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-icon svg {
+            color: white;
+            width: 26px;
+            height: 26px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--bark);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--gray-500);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Products / Gallery Section */
+        .products {
+            padding: 6rem 0;
+            background: var(--sand);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .product-card {
+            background: var(--cream);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 1px solid rgba(22,163,74,0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(22,163,74,0.15);
+            border-color: var(--green-300);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-tag {
+            display: inline-block;
+            background: var(--green-100);
+            color: var(--green-700);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-info h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--bark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--green-700);
+            font-size: 1.2rem;
+            font-family: 'Fraunces', serif;
+        }
+
+        .add-btn {
+            background: var(--green-600);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-btn:hover {
+            background: var(--green-700);
+            transform: scale(1.05);
+        }
+
+        /* Order Form */
+        .order-section {
+            padding: 6rem 0;
+            background: var(--cream);
+        }
+
+        .form-container {
+            max-width: 52rem;
+            margin: 0 auto;
+            background: var(--green-50);
+            border: 1px solid var(--green-200);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--bark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: var(--sand);
+            border: 1.5px solid var(--green-200);
+            border-radius: 10px;
+            color: var(--bark);
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--green-500);
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--sand);
+            padding: 3rem 0;
+            color: var(--bark);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--green-300);
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .footer-section a:hover {
+            color: var(--green-400);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            border: 1px solid var(--gray-400);
+            color: var(--gray-300);
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-1px);
+            box-shadow: none;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--sand);
+            border: 1px solid var(--green-500);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform: translateY(150%);
+            transition: transform 0.3s;
+            z-index: 9999;
+            color: var(--bark);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .toast.show { transform: translateY(0); }
+
+        /* Cart Button */
+        .cart-btn {
+            position: relative;
+            background: var(--green-200);
+            border: 1px solid var(--green-300);
+            color: var(--green-700);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .cart-btn:hover {
+            background: var(--green-300);
+            transform: scale(1.08);
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--green-500);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s;
+        }
+        .cart-count.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Cart Overlay */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 1900;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 400px;
+            max-width: 100vw;
+            background: var(--sand);
+            border-left: 1px solid var(--green-200);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -20px 0 60px rgba(0,0,0,0.4);
+        }
+        .cart-drawer.open {
+            transform: translateX(0);
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--green-200);
+        }
+        .cart-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--bark);
+        }
+        .cart-header span {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            margin-left: 0.4rem;
+        }
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+            display: flex;
+        }
+        .cart-close:hover {
+            color: var(--bark);
+            background: var(--green-200);
+        }
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem 1.5rem;
+        }
+        .cart-items::-webkit-scrollbar { width: 4px; }
+        .cart-items::-webkit-scrollbar-track { background: transparent; }
+        .cart-items::-webkit-scrollbar-thumb { background: var(--green-300); border-radius: 4px; }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--gray-500);
+            gap: 1rem;
+        }
+        .cart-empty svg { opacity: 0.3; }
+        .cart-empty p { font-size: 1rem; font-weight: 300; }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--green-200);
+        }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-item-emoji {
+            font-size: 2rem;
+            background: var(--cream);
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-info h5 {
+            font-family: 'Fraunces', serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--bark);
+            margin-bottom: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-item-price {
+            color: var(--green-600);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .qty-btn {
+            background: var(--cream);
+            border: 1px solid var(--green-200);
+            color: var(--bark);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+        .qty-btn:hover {
+            background: var(--green-200);
+            border-color: var(--green-300);
+        }
+        .qty-value {
+            color: var(--bark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            display: flex;
+        }
+        .cart-item-remove:hover {
+            color: #f87171;
+            background: rgba(248,113,113,0.1);
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--green-200);
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+        .cart-total-label {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+        .cart-total-price {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--green-600);
+        }
+        .cart-checkout {
+            width: 100%;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 0.9rem;
+        }
+        .cart-clear {
+            width: 100%;
+            margin-top: 0.75rem;
+            background: none;
+            border: 1px solid var(--gray-400);
+            color: var(--gray-500);
+            padding: 0.65rem;
+            border-radius: 9999px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cart-clear:hover {
+            border-color: #f87171;
+            color: #f87171;
+            background: rgba(248,113,113,0.07);
+        }
+
+        @media (max-width: 900px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual { display: none; }
+            nav { display: none; }
+            .cart-btn { display: flex !important; }
+        }
+
+        @media (max-width: 600px) {
+            .form-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                FocusNest
+            </a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#prodotti">Products</a>
+                <a href="#ordine">Order</a>
+                <a href="admin.html">Admin</a>
+                <a href="#ordine" class="nav-cta">Start now →</a>
+                <button class="cart-btn" onclick="toggleCart()" aria-label="Carrello">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-layout">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        🌿 Your study space
+                    </div>
+                    <h1>
+                        Study better,<br>
+                        <span class="gradient-text">every day.</span>
+                    </h1>
+                    <p>
+                        FocusNest offers selected products to optimize your concentration,
+                        organize your space and make every study session more effective.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#prodotti" class="btn">
+                            Discover the products
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                        <a href="#ordine" class="btn btn-outline">Order now</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="product-card-mini">
+                        <span class="product-emoji">📓</span>
+                        <h4>Notebook A5</h4>
+                        <div class="price">€12,90</div>
+                    </div>
+                    <div class="product-card-mini">
+                        <span class="product-emoji">⏱️</span>
+                        <h4>Timer Pomodoro</h4>
+                        <div class="price">€24,90</div>
+                    </div>
+                    <div class="product-card-mini">
+                        <span class="product-emoji">🖊️</span>
+                        <h4>Pen Set</h4>
+                        <div class="price">€8,50</div>
+                    </div>
+                    <div class="product-card-mini">
+                        <span class="product-emoji">🎧</span>
+                        <h4>Focus Buds</h4>
+                        <div class="price">€59,90</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <p class="section-label">Why FocusNest</p>
+            <h2 class="section-title">Everything you need to <span class="gradient-text">concentrate yourself</span></h2>
+            <p class="section-subtitle">Each product is carefully chosen to support you during the most intense study sessions.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>High Productivity</h3>
+                    <p>Tools designed to reduce distractions and maximize your study time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>Only premium materials: they last over time and accompany you through every exam and project.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <h3>Designed for You</h3>
+                    <p>Tailored solutions for university and high school students and professionals in training.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="prodotti" class="products">
+        <div class="container">
+            <p class="section-label">Our catalog</p>
+            <h2 class="section-title">Our <span class="gradient-text">products</span></h2>
+            <p class="section-subtitle">From your desk to your ears: everything you need to study at your best.</p>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=600&q=80" alt="Notebook Premium">
+                    <div class="product-info">
+                        <span class="product-tag">Scrittura</span>
+                        <h4>Notebook A5 Premium</h4>
+                        <p>100g/m² ivory paper, hard cover, thin ruling. Ideal for detailed notes.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€12,90</span>
+                            <button class="add-btn" onclick="addToCart('Notebook A5 Premium')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1513544705284-99373737fab6?w=600&q=80" alt="Timer Pomodoro">
+                    <div class="product-info">
+                        <span class="product-tag">Concentration</span>
+                        <h4>Mechanical Pomodoro Timer</h4>
+                        <p>Pomodoro-style desk timer, silent, with no digital notifications. Pure focus.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€24,90</span>
+                            <button class="add-btn" onclick="addToCart('Timer Pomodoro Meccanico')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1766411503489-c6fe7b008bd6?w=600&q=80" alt="Lampada Studio">
+                    <div class="product-info">
+                        <span class="product-tag">Lighting</span>
+                        <h4>LED Studio Lamp</h4>
+                        <p>Adjustable warm/cold light, eye protection, 360° flexible arm.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€39,90</span>
+                            <button class="add-btn" onclick="addToCart('Lampada da Studio LED')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1551996756-7305f665af11?w=600&q=80" alt="Cuffie Focus">
+                    <div class="product-info">
+                        <span class="product-tag">Audio</span>
+                        <h4>Focus Over-Ear Buds</h4>
+                        <p>Passive noise cancellation, memory foam earcups, 30 hours of battery life.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€59,90</span>
+                            <button class="add-btn" onclick="addToCart('Cuffie Focus Over-Ear')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1613909207039-6b173b755cc1?w=600&q=80" alt="Planner">
+                    <div class="product-info">
+                        <span class="product-tag">Organization</span>
+                        <h4>Weekly Planner</h4>
+                        <p>Weekly layout + habit tracker + goal space. No pre-printed dates.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€16,90</span>
+                            <button class="add-btn" onclick="addToCart('Planner Settimanale')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1523292507848-543224912bbf?w=600&q=80" alt="Penne">
+                    <div class="product-info">
+                        <span class="product-tag">Writing</span>
+                        <h4>Set of Colored Pens</h4>
+                        <p>12 colors of water-based ink, fine line 0.4mm, ideal for mind maps and diagrams.</p>
+                        <div class="product-footer">
+                            <span class="product-price">€8,50</span>
+                            <button class="add-btn" onclick="addToCart('Set Penne Colorate')">+ Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section id="ordine" class="order-section">
+        <div class="container">
+            <p class="section-label">Order</p>
+            <h2 class="section-title">Start your <span class="gradient-text">order</span></h2>
+            <p class="section-subtitle">Have questions about a product or want a custom kit? Contact us.</p>
+            <div class="form-container">
+                <form id="orderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full name</label>
+                            <input type="text" id="name" name="name" required placeholder="Mario Rossi">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="mario@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">What are you searching for?</label>
+                        <textarea id="description" name="description" required placeholder="Describe the products you're interested in or the kit you'd like to assemble..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="material">Product category</label>
+                            <select id="material" name="material" required>
+                                <option value="">Select category</option>
+                                <option value="Scrittura">Writing & Notebook</option>
+                                <option value="Concentrazione">Timer & Concentration</option>
+                                <option value="Illuminazione">Lighting</option>
+                                <option value="Audio">Headphones & Audio</option>
+                                <option value="Organizzazione">Organization & Planner</option>
+                                <option value="Kit Completo">Complete Studio Kit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Indicative budget</label>
+                            <input type="text" id="color" name="color" placeholder="ex. €30, €100...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; justify-content: center; font-size: 1.05rem; padding: 1rem;">
+                        Send request
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>FocusNest</h4>
+                    <p>Your trusted shop for products that improve the quality of your study and concentration.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Rapid Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#prodotti">Products</a></li>
+                        <li><a href="#ordine">Order</a></li>
+                        <li><a href="admin.html">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacts</h4>
+                    <ul>
+                        <li>Email: info@focusnest.it</li>
+                        <li>Tel: +39 011 123 4567</li>
+                        <li>England, UK</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 FocusNest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <div>
+                <h3>Cart <span id="cartItemCount"></span></h3>
+            </div>
+            <button class="cart-close" onclick="toggleCart()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItemsList"></div>
+        <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-total">
+                <span class="cart-total-label">Total</span>
+                <span class="cart-total-price" id="cartTotal">€0,00</span>
+            </div>
+            <button class="btn cart-checkout" onclick="checkout()">
+                Proceed to order
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1=12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+            <button class="cart-clear" onclick="clearCart()">Remove all items</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ---- Product catalog (name → price + emoji) ----
+        const PRODUCTS = {
+            'Notebook A5 Premium':      { price: 12.90, emoji: '📓' },
+            'Timer Pomodoro Meccanico': { price: 24.90, emoji: '⏱️' },
+            'Lampada da Studio LED':    { price: 39.90, emoji: '💡' },
+            'Cuffie Focus Over-Ear':    { price: 59.90, emoji: '🎧' },
+            'Planner Settimanale':      { price: 16.90, emoji: '📅' },
+            'Set Penne Colorate':       { price:  8.50, emoji: '🖊️' },
+        };
+
+        // ---- Cart state ----
+        let cart = JSON.parse(localStorage.getItem('focusnest_cart') || '{}');
+
+        function saveCart() {
+            localStorage.setItem('focusnest_cart', JSON.stringify(cart));
+        }
+
+        function getTotalItems() {
+            return Object.values(cart).reduce((s, v) => s + v, 0);
+        }
+
+        function getTotalPrice() {
+            return Object.entries(cart).reduce((s, [name, qty]) => {
+                return s + (PRODUCTS[name]?.price ?? 0) * qty;
+            }, 0);
+        }
+
+        function renderCart() {
+            const list  = document.getElementById('cartItemsList');
+            const count = document.getElementById('cartCount');
+            const badge = document.getElementById('cartItemCount');
+            const footer = document.getElementById('cartFooter');
+            const total = document.getElementById('cartTotal');
+            const n     = getTotalItems();
+
+            // badge
+            count.textContent = n;
+            count.classList.toggle('visible', n > 0);
+            badge.textContent = n > 0 ? `(${n})` : '';
+
+            if (n === 0) {
+                list.innerHTML = `
+                    <div class="cart-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <p>Your cart is empty</p>
+                    </div>`;
+                footer.style.display = 'none';
+            } else {
+                list.innerHTML = Object.entries(cart).map(([name, qty]) => {
+                    const p = PRODUCTS[name] ?? { price: 0, emoji: '📦' };
+                    return `
+                    <div class="cart-item">
+                        <div class="cart-item-emoji">${p.emoji}</div>
+                        <div class="cart-item-info">
+                            <h5>${name}</h5>
+                            <div class="cart-item-price">€${(p.price * qty).toFixed(2).replace('.', ',')}</div>
+                        </div>
+                        <div class="cart-item-qty">
+                            <button class="qty-btn" onclick="changeQty('${name}', -1)">−</button>
+                            <span class="qty-value">${qty}</span>
+                            <button class="qty-btn" onclick="changeQty('${name}', 1)">+</button>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeItem('${name}')" title="Remove">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6l-1 14H6L5 6"></path>
+                                <path d="M10 11v6"></path><path d="M14 11v6"></path>
+                                <path d="M9 6V4h6v2"></path>
+                            </svg>
+                        </button>
+                    </div>`;
+                }).join('');
+                footer.style.display = 'block';
+                total.textContent = '€' + getTotalPrice().toFixed(2).replace('.', ',');
+            }
+        }
+
+        function addToCart(name) {
+            cart[name] = (cart[name] || 0) + 1;
+            saveCart();
+            renderCart();
+            showToast(`✅ "${name}" added to cart!`);
+        }
+
+        function changeQty(name, delta) {
+            if (!cart[name]) return;
+            cart[name] += delta;
+            if (cart[name] <= 0) delete cart[name];
+            saveCart();
+            renderCart();
+        }
+
+        function removeItem(name) {
+            delete cart[name];
+            saveCart();
+            renderCart();
+        }
+
+        function clearCart() {
+            cart = {};
+            saveCart();
+            renderCart();
+        }
+
+        function toggleCart() {
+            const drawer  = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+            const open    = drawer.classList.toggle('open');
+            overlay.classList.toggle('open', open);
+            document.body.style.overflow = open ? 'hidden' : '';
+        }
+
+        function checkout() {
+            toggleCart();
+            document.querySelector('#ordine').scrollIntoView({ behavior: 'smooth' });
+            const desc = document.getElementById('description');
+            if (desc) {
+                desc.value = Object.entries(cart)
+                    .map(([name, qty]) => `${name} x${qty}`)
+                    .join(', ');
+            }
+            showToast('🛒 Cart copied to order form!');
+        }
+
+        // init
+        renderCart();
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = {
+                id: 'FN-' + String(Date.now()).slice(-6),
+                customerName: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                description: document.getElementById('description').value,
+                material: document.getElementById('material').value,
+                color: document.getElementById('color').value || 'Non specificato',
+                status: 'Pending Review',
+                price: 'TBD',
+                date: new Date().toISOString().split('T')[0]
+            };
+            let orders = JSON.parse(localStorage.getItem('focusnest_orders') || '[]');
+            orders.push(formData);
+            localStorage.setItem('focusnest_orders', JSON.stringify(orders));
+            showToast('✅ Request sent! We\'ll be in touch soon.');
+            this.reset();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
