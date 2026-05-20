@@ -489,6 +489,10 @@
                 <h2 id="totalOrders">0</h2>
             </div>
             <div class="stat-card">
+                <p>🛒 Da carrello</p>
+                <h2 id="cartOrders" style="color: var(--green-500);">0</h2>
+            </div>
+            <div class="stat-card">
                 <p>In lavorazione</p>
                 <h2 id="inProgressOrders" style="color: var(--green-600);">0</h2>
             </div>
@@ -517,6 +521,11 @@
                 <option value="In Progress">In lavorazione</option>
                 <option value="Completed">Completato</option>
             </select>
+            <select id="typeFilter" class="select-input">
+                <option value="all">Tutti i tipi</option>
+                <option value="cart">🛒 Carrello</option>
+                <option value="request">📝 Richiesta</option>
+            </select>
         </div>
 
         <!-- Table -->
@@ -525,8 +534,9 @@
                 <thead>
                     <tr>
                         <th>ID Ordine</th>
+                        <th>Tipo</th>
                         <th>Cliente</th>
-                        <th>Richiesta</th>
+                        <th>Richiesta / Prodotti</th>
                         <th>Stato</th>
                         <th>Prezzo</th>
                         <th>Data</th>
@@ -579,6 +589,10 @@
                 <label style="display: block; color: var(--gray-500); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Descrizione richiesta</label>
                 <div class="description-box" id="modalDescription">-</div>
             </div>
+            <div id="modalCartItemsSection" style="display:none; margin-bottom: 1.5rem;">
+                <label style="display: block; color: var(--gray-500); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Prodotti ordinati</label>
+                <div id="modalCartItems" style="background: var(--cream); border-radius: 10px; border: 1px solid var(--green-200); overflow: hidden;"></div>
+            </div>
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: block; color: var(--gray-500); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Aggiorna stato</label>
                 <select id="modalStatusSelect" class="select-input" style="width: 100%;">
@@ -617,9 +631,17 @@
         function updateStats() {
             const orders = loadOrders();
             document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('cartOrders').textContent = orders.filter(o => o.type === 'cart').length;
             document.getElementById('inProgressOrders').textContent = orders.filter(o => o.status === 'In Progress').length;
             document.getElementById('completedOrders').textContent = orders.filter(o => o.status === 'Completed').length;
             document.getElementById('pendingOrders').textContent = orders.filter(o => o.status === 'Pending Review').length;
+        }
+
+        function getTypeBadge(type) {
+            if (type === 'cart') {
+                return `<span style="display:inline-flex;align-items:center;gap:0.3rem;background:rgba(34,197,94,0.12);color:#166534;border:1px solid rgba(34,197,94,0.3);padding:0.25rem 0.7rem;border-radius:9999px;font-size:0.75rem;font-weight:600;">🛒 Carrello</span>`;
+            }
+            return `<span style="display:inline-flex;align-items:center;gap:0.3rem;background:rgba(234,179,8,0.1);color:#92400e;border:1px solid rgba(234,179,8,0.3);padding:0.25rem 0.7rem;border-radius:9999px;font-size:0.75rem;font-weight:600;">📝 Richiesta</span>`;
         }
 
         function getStatusBadge(status) {
@@ -628,16 +650,8 @@
                 'In Progress': '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
                 'Pending Review': '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>'
             };
-            const classes = {
-                'Completed': 'badge-completed',
-                'In Progress': 'badge-progress',
-                'Pending Review': 'badge-pending'
-            };
-            const labels = {
-                'Completed': 'Completato',
-                'In Progress': 'In lavorazione',
-                'Pending Review': 'In attesa'
-            };
+            const classes = { 'Completed': 'badge-completed', 'In Progress': 'badge-progress', 'Pending Review': 'badge-pending' };
+            const labels = { 'Completed': 'Completato', 'In Progress': 'In lavorazione', 'Pending Review': 'In attesa' };
             return `<span class="badge ${classes[status]}">${icons[status]} ${labels[status]}</span>`;
         }
 
@@ -645,57 +659,53 @@
             const orders = loadOrders();
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const statusFilter = document.getElementById('statusFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
 
             const filtered = orders.filter(order => {
                 const matchSearch = order.customerName.toLowerCase().includes(searchTerm) ||
                                    order.id.toLowerCase().includes(searchTerm) ||
                                    order.email.toLowerCase().includes(searchTerm);
                 const matchStatus = statusFilter === 'all' || order.status === statusFilter;
-                return matchSearch && matchStatus;
+                const matchType = typeFilter === 'all' || order.type === typeFilter || (!order.type && typeFilter === 'request');
+                return matchSearch && matchStatus && matchType;
             });
 
             const tbody = document.getElementById('ordersTableBody');
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nessun ordine trovato</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Nessun ordine trovato</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = filtered.map(order => `
-                <tr>
+            tbody.innerHTML = filtered.map(order => {
+                const isCart = order.type === 'cart';
+                const descHtml = isCart
+                    ? (order.cartItems || []).map(i => `<span style="display:inline-block;background:var(--green-50);color:var(--green-700);border-radius:6px;padding:0.15rem 0.5rem;font-size:0.78rem;margin:0.1rem 0.15rem 0.1rem 0;">${i.emoji || ''} ${i.name} ×${i.qty}</span>`).join('')
+                    : `<div style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:300;">${order.description}</div>
+                       <div style="color:var(--gray-400);font-size:0.8rem;margin-top:0.2rem;">${order.material} • ${order.color}</div>`;
+
+                return `<tr>
                     <td><span class="order-id">${order.id}</span></td>
+                    <td>${getTypeBadge(order.type)}</td>
                     <td>
-                        <div style="font-weight: 600;">${order.customerName}</div>
-                        <div style="color: var(--gray-400); font-size: 0.85rem;">${order.email}</div>
+                        <div style="font-weight:600;">${order.customerName}</div>
+                        <div style="color:var(--gray-400);font-size:0.85rem;">${order.email}</div>
                     </td>
-                    <td>
-                        <div style="max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 300;">
-                            ${order.description}
-                        </div>
-                        <div style="color: var(--gray-400); font-size: 0.8rem; margin-top: 0.2rem;">
-                            ${order.material} • ${order.color}
-                        </div>
-                    </td>
+                    <td>${descHtml}</td>
                     <td>${getStatusBadge(order.status)}</td>
-                    <td><span style="color: var(--green-600); font-weight: 700;">${order.price}</span></td>
-                    <td style="color: var(--gray-500); font-size: 0.9rem;">${order.date}</td>
+                    <td><span style="color:var(--green-600);font-weight:700;">${order.price}</span></td>
+                    <td style="color:var(--gray-500);font-size:0.9rem;">${order.date}</td>
                     <td>
                         <div class="actions">
                             <button class="icon-btn" onclick="viewOrder('${order.id}')" title="Visualizza">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                             </button>
                             <button class="icon-btn danger" onclick="deleteOrder('${order.id}')" title="Elimina">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                             </button>
                         </div>
                     </td>
-                </tr>
-            `).join('');
+                </tr>`;
+            }).join('');
         }
 
         function viewOrder(orderId) {
@@ -703,15 +713,36 @@
             const order = orders.find(o => o.id === orderId);
             if (!order) return;
             currentOrderId = orderId;
+
             document.getElementById('modalOrderId').textContent = `Ordine ${order.id}`;
             document.getElementById('modalCustomerName').textContent = order.customerName;
             document.getElementById('modalEmail').textContent = order.email;
-            document.getElementById('modalMaterial').textContent = order.material;
-            document.getElementById('modalColor').textContent = order.color;
+            document.getElementById('modalMaterial').textContent = order.type === 'cart' ? '🛒 Ordine da carrello' : order.material;
+            document.getElementById('modalColor').textContent = order.type === 'cart' ? '—' : order.color;
             document.getElementById('modalPrice').textContent = order.price;
             document.getElementById('modalDate').textContent = order.date;
             document.getElementById('modalDescription').textContent = order.description;
             document.getElementById('modalStatusSelect').value = order.status;
+
+            // Cart items detail
+            const cartSection = document.getElementById('modalCartItemsSection');
+            if (order.type === 'cart' && order.cartItems?.length) {
+                const rows = order.cartItems.map(i => `
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);">
+                        <span style="color:var(--bark);">${i.emoji || '📦'} ${i.name} <span style="color:var(--gray-400);">× ${i.qty}</span></span>
+                        <span style="color:var(--green-600);font-weight:700;">€${(i.price * i.qty).toFixed(2).replace('.', ',')}</span>
+                    </div>`).join('');
+                const total = order.cartItems.reduce((s, i) => s + i.price * i.qty, 0);
+                document.getElementById('modalCartItems').innerHTML = rows + `
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem 1rem;background:rgba(34,197,94,0.07);border-top:1px solid var(--green-200);">
+                        <span style="font-weight:700;color:var(--bark);">Totale</span>
+                        <span style="font-family:'Fraunces',serif;font-size:1.1rem;font-weight:900;color:var(--green-500);">€${total.toFixed(2).replace('.', ',')}</span>
+                    </div>`;
+                cartSection.style.display = 'block';
+            } else {
+                cartSection.style.display = 'none';
+            }
+
             document.getElementById('orderModal').classList.add('show');
         }
 
@@ -745,9 +776,13 @@
 
         document.getElementById('searchInput').addEventListener('input', renderOrders);
         document.getElementById('statusFilter').addEventListener('change', renderOrders);
+        document.getElementById('typeFilter').addEventListener('change', renderOrders);
         document.getElementById('orderModal').addEventListener('click', function(e) {
             if (e.target === this) closeModal();
         });
+
+        // Auto-refresh every 5 seconds to pick up new orders from the shop tab
+        setInterval(() => { updateStats(); renderOrders(); }, 5000);
 
         updateStats();
         renderOrders();
